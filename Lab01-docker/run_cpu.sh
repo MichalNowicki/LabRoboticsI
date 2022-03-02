@@ -13,7 +13,7 @@ XAUTH=/tmp/.docker.xauth
      chmod a+r $XAUTH
  fi
 
-docker stop SIwR_01 || true && docker rm SIwR_01 || true
+docker stop ROB_01 || true && docker rm ROB_01 || true
 
 docker run -it \
     --env="DISPLAY=$DISPLAY" \
