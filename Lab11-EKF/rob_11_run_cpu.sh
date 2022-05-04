@@ -13,7 +13,7 @@ then
     chmod a+r $XAUTH
 fi
 
-docker stop LabRobotics10 || true && docker rm LabRobotics10 || true
+docker stop LabRobotics11 || true && docker rm LabRobotics11 || true
 
 docker run -it \
     --env="DISPLAY=$DISPLAY" \
