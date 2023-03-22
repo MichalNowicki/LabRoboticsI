@@ -10,8 +10,9 @@ ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPA
 # INSTALL SOME ESSENTIAL PROGRAMS
 RUN apt-get update     && \
     apt-get install -y    \
-        git wget cmake libgoogle-glog-dev libeigen3-dev ros-noetic-rviz python3-rosdep ros-noetic-roslint unzip && \
+        git wget cmake libgoogle-glog-dev libeigen3-dev ros-noetic-rviz python3-rosdep ros-noetic-roslint unzip python3-pip python3-dateutil && \
     rm -rf /var/lib/apt/lists/*
+RUN pip install ultralytics python-dateutil==2.8.2
 
 # CREATE CATKIN WS
 WORKDIR /
@@ -21,11 +22,6 @@ RUN mkdir -p /catkin_ws/src/
 WORKDIR /catkin_ws/src/
 RUN git clone https://github.com/OTL/cv_camera
 
-# COPY YOLO
-WORKDIR /catkin_ws/
-COPY yolo-object-detection.zip .
-RUN unzip yolo-object-detection.zip
-RUN rm yolo-object-detection.zip
 
 # DEPENDENCIES
 WORKDIR /catkin_ws/
