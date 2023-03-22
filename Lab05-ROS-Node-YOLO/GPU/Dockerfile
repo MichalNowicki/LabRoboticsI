@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.3.0-devel-ubuntu20.04
 
 # SETUP ENVS
 ENV LANG=C.UTF-8
@@ -45,8 +45,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # INSTALL SOME ESSENTIAL PROGRAMS
 RUN apt-get update     && \
     apt-get install -y    \
-        git wget cmake libgoogle-glog-dev libeigen3-dev ros-noetic-perception ros-noetic-rviz python3-rosdep ros-noetic-roslint unzip && \
+        git wget cmake libgoogle-glog-dev libeigen3-dev ros-noetic-perception ros-noetic-image-transport-plugins ros-noetic-rviz python3-rosdep ros-noetic-roslint unzip python3-pip python-dateutil&& \
     rm -rf /var/lib/apt/lists/*
+RUN pip install ultralytics
 
 # CREATE CATKIN WS
 WORKDIR /
@@ -56,11 +57,6 @@ RUN mkdir -p /catkin_ws/src/
 WORKDIR /catkin_ws/src/
 RUN git clone https://github.com/OTL/cv_camera
 
-# COPY YOLO
-WORKDIR /catkin_ws/
-COPY yolo-object-detection.zip .
-RUN unzip yolo-object-detection.zip
-RUN rm yolo-object-detection.zip
 
 # DEPENDENCIES
 WORKDIR /catkin_ws/
